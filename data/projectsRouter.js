@@ -59,6 +59,17 @@ router
           });
       })
 
+      router
+      .delete('/:id', (req, res) => {
+          Projects.remove(req.params.id)
+          .then(project => {
+            res.status(200).json(project)
+          })
+          .catch(err => {
+            res.status(500).json({ message: "Error, could not delete project" });
+          });
+      })
+
 
 
 //custom middleware
