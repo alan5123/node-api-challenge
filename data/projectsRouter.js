@@ -48,17 +48,32 @@ router
         })
       })
 
+
+      // Add Project
       router
-      .post('/',(req,res) => {
+      .post('/',(req, res) => {
           Projects.insert(req.body)
           .then(project => {
             res.status(200).json(project)
           })
           .catch(err => {
+            console.log(err);
             res.status(500).json({ message: "Error, could not add project" });
           });
       })
+router
+.put('/:id',validateProjectId, (req, res) => {
+    Projects.update(req.params.id, req.body)
+    .then(project => {
+        res.status(200).json(project)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: "Error, could not update project" });
+      });
+})
 
+      //Delete project
       router
       .delete('/:id', (req, res) => {
           Projects.remove(req.params.id)
@@ -66,6 +81,7 @@ router
             res.status(200).json(project)
           })
           .catch(err => {
+            console.log(err);
             res.status(500).json({ message: "Error, could not delete project" });
           });
       })
