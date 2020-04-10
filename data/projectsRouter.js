@@ -6,6 +6,8 @@ const Projects = require('./helpers/projectModel')
 const router = express.Router()
 
 
+
+// Get list of projects
 router.get('/', (req,res) => {
     Projects.get()
     .then(projects => {
@@ -17,6 +19,8 @@ router.get('/', (req,res) => {
       });
 })
 
+
+//Get projects by id
 router
 .get('/:id', validateProjectId, (req, res) => {
   Projects.get(req.params.id)
@@ -28,6 +32,23 @@ router
     res.status(500).json({error: 'Project could not be retrieved'})
   })
       });
+
+
+      //Get projects actions
+      router
+      .get('/:id/actions', validateProjectId, (req, res) =>{
+          Projects.getProjectActions(req.params.id)
+          .then(projects =>{
+              res.status(200).json(projects)
+              
+          })
+          .catch(error => {
+            console.log(error)
+            res.status(500).json({error: 'Projects actions could not be retrieved'})
+        })
+      })
+
+      
 
 
 
