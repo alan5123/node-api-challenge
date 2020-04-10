@@ -61,6 +61,8 @@ router
             res.status(500).json({ message: "Error, could not add project" });
           });
       })
+
+      //Update Project
 router
 .put('/:id',validateProjectId, (req, res) => {
     Projects.update(req.params.id, req.body)

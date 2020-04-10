@@ -26,9 +26,55 @@ router
   })
   .catch(error => {
     console.log(error)
-    res.status(500).json({error: 'Project could not be retrieved'})
+    res.status(500).json({error: 'Action could not be retrieved'})
   })
       });
+    
+
+
+      //Adding Actions
+      router
+      .post('/',(req, res) => {
+          Actions.insert(req.body)
+          .then(Actions => {
+            res.status(200).json(Actions)
+          })
+          .catch(err => {
+            console.log(err);
+            res.status(500).json({ message: "Error, could not add Action" });
+          });
+      })
+
+
+
+      // Update Actions
+router
+.put('/:id',validateActionId, (req, res) => {
+    Actions.update(req.params.id, req.body)
+    .then(Actions => {
+        res.status(200).json(Actions)
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json({ message: "Error, could not update Actions" });
+      });
+})
+
+
+    //Delete Actions
+    router
+    .delete('/:id', (req, res) => {
+        Actions.remove(req.params.id)
+        .then(Actions => {
+          res.status(200).json(Actions)
+        })
+        .catch(err => {
+          console.log(err);
+          res.status(500).json({ message: "Error, could not delete Action" });
+        });
+    })
+
+
 
 
 //custom middleware
